@@ -32,7 +32,7 @@ class NetworkConnection:
         address = ''
         cont = 1
         for data in info:
-            address += fields + str(cont) + '=' str(data)
+            address += fields + str(cont) + '=' + str(data)
             cont += 1
         print(address)
         #respuesta = urequests.get(url+"&field1="+str(temp)+"&field2="+str(hum))
