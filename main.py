@@ -1,12 +1,16 @@
 # main.py
+from glob import glob
 import time
 
-# Package
+# Models
 from Models.SensorDht import SensorDHT
 from Models.FireConnect import FirebaseConnect
 from Models.PowerBomb import PowerBomb
 from Models.SensorAnalogo import SensorAnalogo
 from Models.Led import Led
+from Models.Screen import Screen
+
+#Package
 from Shared.NetworkConnect import NetworkConnection
 
 red = {'name': 'TP-Link_D54E', 'pass': '04577041'}
@@ -29,6 +33,9 @@ sensorFT = SensorAnalogo(36, 620, 1023)
 #Sensor de luz (pin, minimo, maximo)
 sensorLDR = SensorAnalogo(39, 65, 650)
 
+#Pantalla oled (Pin scl, Pin sda)
+screen = Screen(22, 21)
+
 #Salidas led
 ledBomb = Led(2)
 ledHumidity = Led(4)
@@ -41,14 +48,20 @@ valueFC = 0
 valueLDR = 0
 
 def main():
+    
+    #Init message oled
+    screen.MessagesInitOled()
+    
     try:
         if connection.conectaWifi():
             
-            
             while True:
                 proccessBomb(False)
+                
                 environment = proccessDHT()
-                groundMoisture= proccessFC()
+                
+                groundMoisture = proccessFC()
+                
                 light = proccessLDR()
                 
                 if (light > 80 and groundMoisture < 50):
@@ -59,22 +72,27 @@ def main():
                         proccessBomb(True)
                     else:
                         proccessBomb(False)
-                        
+
+                screen.ShowMessage()
                 time.sleep(5)
                     
         else:
             print ("Imposible conectar")
-            #oled.text("Imposible conectar!!!", 0 , 1) # columna ---- fila
-            #oled.show()
+            screen.FillMessage(0 , 16, "Imposible conectar!!!")
+            screen.ShowMessage()
             connection.desactive()
     except:
         print ("Ocurrio un problema!!!")
+        screen.FillMessage(0 , 16, "Ocurrio un problema!!!")
+        screen.ShowMessage()
+
 
 #Ejecucion proceso de sensor dht11
 def proccessDHT():
-    time.sleep(4)
+    global valueDHT
     sensorDHT.getData()
     messageDHT = "T={:02.} ºC, H={:02d}%".format(sensorDHT.temperature, sensorDHT.humidity)
+    screen.FillMessage(0, 0, messageDHT)
     
     if (valueDHT[0] != sensorDHT.humidity | valueDHT[1] != sensorDHT.temperature):
         valueDHT[0] = sensorDHT.humidity
@@ -85,17 +103,19 @@ def proccessDHT():
 
 #Ejecucion proceso de bomba
 def proccessBomb(state):
-    time.sleep(4)
     if state == True:
         powerBomb.BombOn()
+        screen.FillMessage(0, 48, "Bomba de agua activa")
         print("Bomba de agua activa")
     else:
         powerBomb.BombOff()
+        screen.FillMessage(0, 48, "Bomba Apagada")
         print("Bomba Apagada")
 
 #Ejecucion proceso de sensor de humedad de tierra
 def proccessFC():
     time.sleep(4)
+    global valueFC
     stateSensor = sensorFT.map()
     
     if (stateSensor < 40):
@@ -104,6 +124,7 @@ def proccessFC():
         ledHumidity.ledOff()
         
     messageFC = "{}% Humedad de suelo".format(stateSensor)
+    screen.FillMessage(0, 16, messageFC)
     
     if (valueFC != stateSensor):
         valueFC = stateSensor
@@ -113,9 +134,11 @@ def proccessFC():
 
 #Ejecucion proceso de fotocelda
 def proccessLDR():
+    global valueLDR
     time.sleep(4)
     stateSensor = sensorLDR.map() 
     messageLDR = "{}% nivel de luz".format(stateSensor)
+    screen.FillMessage(0, 32, messageLDR)
     
     if (valueLDR != stateSensor):
         valueLDR = stateSensor
