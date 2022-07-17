@@ -4,12 +4,14 @@ import time
 
 class Screen:
     
-    height = 128
-    width = 64
+    height = 64
+    width = 128
     
     def __init__(self, scl, sda) -> None:
         self.__i2c = I2C(0, scl = Pin(scl), sda = Pin(sda))
         self.__oled = SSD1306_I2C(self.__class__.width, self.__class__.height, self.__i2c)
+        print(self.__i2c.scan())
+
         
     def FillMessage(self, colum, file, message):
         self.__oled.text(message, colum, file)
@@ -22,15 +24,15 @@ class Screen:
         
     def MessagesInitOled(self):
         #Show init message
-        self.FillMessage(0 , 0, "Bienvenido a BE_AGRO!!!")
-        self.FillMessage(0 , 16, "Procesando...")
-        self.FillMessage(0 , 32, "_______________________")
+        self.__oled.fill(0)
+        self.__oled.text("Bienvenido a BE_AGRO!!!", 0, 0)
+        self.__oled.text("Procesando...", 0, 10)
+        self.__oled.text("________________", 0, 20)
         self.__oled.show()
         time.sleep(2)
-        self.FillMessage(0 , 0, "____BE_AGRO____")
-        self.FillMessage(0 , 16, "Procesando...")
+        self.__oled.fill(0)
+        self.__oled.text("__BE_AGRO__", 0, 0)
+        self.__oled.text("Procesando...", 0, 10)
         self.__oled.show()
+        self.__oled.fill(0)
         time.sleep(2)
-        self.clear(1)
-        time.sleep(2)
-        self.clear(0)

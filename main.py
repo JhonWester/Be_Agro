@@ -104,7 +104,7 @@ def proccessDHT():
 def proccessBomb(state):
     if state == True:
         powerBomb.BombOn()
-        screen.FillMessage(0, 48, "Bomba de agua activa")
+        screen.FillMessage(0, 48, "Bomba Activa")
         print("Bomba de agua activa")
     else:
         powerBomb.BombOff()
@@ -122,7 +122,7 @@ def proccessFC():
     else:
         ledHumidity.ledOff()
         
-    messageFC = "{}% Humedad de suelo".format(stateSensor)
+    messageFC = "{}% Hum suelo".format(stateSensor)
     screen.FillMessage(0, 16, messageFC)
     
     if (valueFC != stateSensor):
