@@ -5,10 +5,10 @@ class SensorDHT:
     
     def __init__(self, puerto):
         self.__sensor = DHT11(Pin(puerto))
-        self.temperatura = 0
-        self.humedad = 0
+        self.temperature = 0
+        self.humidity = 0
         
     def getData(self):
         self.__sensor.measure()
-        self.temperatura = self.__sensor.temperature()
-        self.humedad = self.__sensor.humidity()
+        self.temperature = self.__sensor.temperature()
+        self.humidity = self.__sensor.humidity()
