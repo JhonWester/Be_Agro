@@ -12,7 +12,6 @@ class Screen:
         
     def FillMessage(self, colum, file, message):
         self.__oled.text(message, colum, file)
-        self.__oled.show()
     
     def ShowMessage(self):
         self.__oled.show()
