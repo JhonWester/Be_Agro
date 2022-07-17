@@ -1,4 +1,5 @@
 # main.py
+from glob import glob
 import time
 
 # Models
@@ -89,6 +90,7 @@ def main():
 #Ejecucion proceso de sensor dht11
 def proccessDHT():
     time.sleep(4)
+    global valueDHT
     sensorDHT.getData()
     messageDHT = "T={:02.} ºC, H={:02d}%".format(sensorDHT.temperature, sensorDHT.humidity)
     screen.FillMessage(0, 0, messageDHT)
@@ -115,6 +117,7 @@ def proccessBomb(state):
 #Ejecucion proceso de sensor de humedad de tierra
 def proccessFC():
     time.sleep(4)
+    global valueFC
     stateSensor = sensorFT.map()
     
     if (stateSensor < 40):
@@ -133,6 +136,7 @@ def proccessFC():
 
 #Ejecucion proceso de fotocelda
 def proccessLDR():
+    global valueLDR
     time.sleep(4)
     stateSensor = sensorLDR.map() 
     messageLDR = "{}% nivel de luz".format(stateSensor)

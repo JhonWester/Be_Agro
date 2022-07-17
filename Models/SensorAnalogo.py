@@ -12,7 +12,6 @@ class SensorAnalogo:
         
     def map(self):
         value = self.__state.read()
-        print(value)
         if value > self.__max:
             return 0
         elif value < self.__min:
