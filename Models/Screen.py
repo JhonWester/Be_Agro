@@ -22,15 +22,15 @@ class Screen:
         
     def MessagesInitOled(self):
         #Show init message
-        self.__oled.FillMessage("Bienvenido a BE_AGRO!!!", 0 , 0)
-        self.__oled.FillMessage("Procesando...", 0 , 16)
-        self.__oled.FillMessage("_______________________", 0 , 32)
+        self.FillMessage(0 , 0, "Bienvenido a BE_AGRO!!!")
+        self.FillMessage(0 , 16, "Procesando...")
+        self.FillMessage(0 , 32, "_______________________")
         self.__oled.show()
         time.sleep(2)
-        self.__oled.FillMessage("____BE_AGRO____", 0 , 0)
-        self.__oled.FillMessage("Procesando...", 0 , 16)
-        self.__oled.clear()
+        self.FillMessage(0 , 0, "____BE_AGRO____")
+        self.FillMessage(0 , 16, "Procesando...")
+        self.__oled.show()
         time.sleep(2)
-        self.__oled.clear(1)
+        self.clear(1)
         time.sleep(2)
-        self.__oled.clear(0)
+        self.clear(0)
