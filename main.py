@@ -89,7 +89,6 @@ def main():
 
 #Ejecucion proceso de sensor dht11
 def proccessDHT():
-    time.sleep(4)
     global valueDHT
     sensorDHT.getData()
     messageDHT = "T={:02.} ºC, H={:02d}%".format(sensorDHT.temperature, sensorDHT.humidity)
@@ -104,15 +103,14 @@ def proccessDHT():
 
 #Ejecucion proceso de bomba
 def proccessBomb(state):
-    time.sleep(4)
     if state == True:
         powerBomb.BombOn()
         screen.FillMessage(0, 48, "Bomba de agua activa")
-        #print("Bomba de agua activa")
+        print("Bomba de agua activa")
     else:
         powerBomb.BombOff()
         screen.FillMessage(0, 48, "Bomba Apagada")
-        #print("Bomba Apagada")
+        print("Bomba Apagada")
 
 #Ejecucion proceso de sensor de humedad de tierra
 def proccessFC():
