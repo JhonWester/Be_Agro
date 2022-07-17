@@ -113,7 +113,6 @@ def proccessBomb(state):
 
 #Ejecucion proceso de sensor de humedad de tierra
 def proccessFC():
-    time.sleep(4)
     global valueFC
     stateSensor = sensorFT.map()
     
@@ -134,7 +133,6 @@ def proccessFC():
 #Ejecucion proceso de fotocelda
 def proccessLDR():
     global valueLDR
-    time.sleep(4)
     stateSensor = sensorLDR.map() 
     messageLDR = "{}% nivel de luz".format(stateSensor)
     screen.FillMessage(0, 32, messageLDR)
