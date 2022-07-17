@@ -48,9 +48,8 @@ valueLDR = 0
 
 def main():
     
-    #Show init message
-    screen.FillMessage("Bienvenido a BE_AGRO!!!", 0 , 10)
-    screen.ShowMessage()
+    #Init message oled
+    MessagesInitOled()
     
     try:
         if connection.conectaWifi():
@@ -78,21 +77,34 @@ def main():
                     
         else:
             print ("Imposible conectar")
-            screen.FillMessage(0 , 20, "Imposible conectar!!!")
+            screen.FillMessage(0 , 16, "Imposible conectar!!!")
             screen.ShowMessage()
             connection.desactive()
     except:
         print ("Ocurrio un problema!!!")
-        screen.FillMessage(0 , 20, "Ocurrio un problema!!!")
+        screen.FillMessage(0 , 16, "Ocurrio un problema!!!")
         screen.ShowMessage()
 
+def MessagesInitOled():
+    #Show init message
+    screen.FillMessage("Bienvenido a BE_AGRO!!!", 0 , 0)
+    screen.FillMessage("Procesando...", 0 , 16)
+    screen.ShowMessage()
+    time.sleep(2)
+    screen.FillMessage("____BE_AGRO____", 0 , 0)
+    screen.ShowMessage()
+    time.sleep(2)
+    screen.clear(1)
+    time.sleep(2)
+    screen.clear(0)
+    
 
 #Ejecucion proceso de sensor dht11
 def proccessDHT():
     time.sleep(4)
     sensorDHT.getData()
     messageDHT = "T={:02.} ºC, H={:02d}%".format(sensorDHT.temperature, sensorDHT.humidity)
-    screen.FillMessage(0, 20, messageDHT)
+    screen.FillMessage(0, 0, messageDHT)
     
     if (valueDHT[0] != sensorDHT.humidity | valueDHT[1] != sensorDHT.temperature):
         valueDHT[0] = sensorDHT.humidity
@@ -106,11 +118,11 @@ def proccessBomb(state):
     time.sleep(4)
     if state == True:
         powerBomb.BombOn()
-        screen.FillMessage(0, 60, "Bomba de agua activa")
+        screen.FillMessage(0, 48, "Bomba de agua activa")
         #print("Bomba de agua activa")
     else:
         powerBomb.BombOff()
-        screen.FillMessage(0, 60, "Bomba Apagada")
+        screen.FillMessage(0, 48, "Bomba Apagada")
         #print("Bomba Apagada")
 
 #Ejecucion proceso de sensor de humedad de tierra
@@ -124,7 +136,7 @@ def proccessFC():
         ledHumidity.ledOff()
         
     messageFC = "{}% Humedad de suelo".format(stateSensor)
-    screen.FillMessage(0, 20, messageFC)
+    screen.FillMessage(0, 16, messageFC)
     
     if (valueFC != stateSensor):
         valueFC = stateSensor
@@ -137,7 +149,7 @@ def proccessLDR():
     time.sleep(4)
     stateSensor = sensorLDR.map() 
     messageLDR = "{}% nivel de luz".format(stateSensor)
-    screen.FillMessage(0, 50, messageLDR)
+    screen.FillMessage(0, 32, messageLDR)
     
     if (valueLDR != stateSensor):
         valueLDR = stateSensor
