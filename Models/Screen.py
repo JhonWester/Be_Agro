@@ -1,5 +1,6 @@
 from machine import Pin, I2C
 from Package.ssd1306 import SSD1306_I2C
+import time
 
 class Screen:
     
@@ -19,3 +20,17 @@ class Screen:
     def ShowMessage(self):
         self.__oled.show()
         
+    def MessagesInitOled(self):
+        #Show init message
+        self.__oled.FillMessage("Bienvenido a BE_AGRO!!!", 0 , 0)
+        self.__oled.FillMessage("Procesando...", 0 , 16)
+        self.__oled.FillMessage("_______________________", 0 , 32)
+        self.__oled.show()
+        time.sleep(2)
+        self.__oled.FillMessage("____BE_AGRO____", 0 , 0)
+        self.__oled.FillMessage("Procesando...", 0 , 16)
+        self.__oled.clear()
+        time.sleep(2)
+        self.__oled.clear(1)
+        time.sleep(2)
+        self.__oled.clear(0)

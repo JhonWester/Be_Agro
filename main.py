@@ -49,7 +49,7 @@ valueLDR = 0
 def main():
     
     #Init message oled
-    MessagesInitOled()
+    screen.MessagesInitOled()
     
     try:
         if connection.conectaWifi():
@@ -85,19 +85,6 @@ def main():
         screen.FillMessage(0 , 16, "Ocurrio un problema!!!")
         screen.ShowMessage()
 
-def MessagesInitOled():
-    #Show init message
-    screen.FillMessage("Bienvenido a BE_AGRO!!!", 0 , 0)
-    screen.FillMessage("Procesando...", 0 , 16)
-    screen.ShowMessage()
-    time.sleep(2)
-    screen.FillMessage("____BE_AGRO____", 0 , 0)
-    screen.ShowMessage()
-    time.sleep(2)
-    screen.clear(1)
-    time.sleep(2)
-    screen.clear(0)
-    
 
 #Ejecucion proceso de sensor dht11
 def proccessDHT():
