@@ -61,7 +61,6 @@ def initBeAgro():
     if connection.conectaWifi():
         
         while True:
-            proccessBomb(False)
             
             environment = proccessDHT()
             

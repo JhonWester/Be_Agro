@@ -6,6 +6,7 @@ def main():
         Control.initBeAgro()
     except:
         Control.messageLed(0, 16, "Ocurrio un problema!!!")
+        Control.proccessError()
 
 
 
