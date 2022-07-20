@@ -3,7 +3,10 @@ import ujson
 
 class FirebaseConnect:
     
-    url = 'https://agro-app-2aa55-default-rtdb.firebaseio.com/'
+    with open("./Shared/config.json") as config_file:
+        data = ujson.load(config_file)
+        
+    url = data["urlFirebase"]
     pathDht = '/Sensors/Environment'
     pathFC =  '/Sensors/Humidity'
     pathLDR = '/Sensors/Light'

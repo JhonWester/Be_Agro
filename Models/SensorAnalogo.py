@@ -17,7 +17,9 @@ class SensorAnalogo:
         elif value < self.__min:
             return 100
         else:
-            state = ((value - self.__min) * 100) / self.Range
+            state = (value * 100) / self.__max
             return int(100 - state)
         
+    def result(self):
+        return self.__state.read()
         
