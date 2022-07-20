@@ -1,11 +1,15 @@
 from machine import Pin, I2C
 from Package.ssd1306 import SSD1306_I2C
+import json
 import time
 
 class Screen:
     
-    height = 64
-    width = 128
+    with open('config.json') as config_file:
+        data = json.load(config_file)
+        
+    height = data["oled"]["height"]
+    width = data["oled"]["width"]
     
     def __init__(self, scl, sda) -> None:
         self.__i2c = I2C(0, scl = Pin(scl), sda = Pin(sda))

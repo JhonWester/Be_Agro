@@ -8,8 +8,8 @@ class PowerBomb:
         self.BombOff()
         
     def BombOn(self):
-        self.__state.value(1)
+        self.__state.value(0)
         
     def BombOff(self):
-        self.__state.value(0)
+        self.__state.value(1)
         
