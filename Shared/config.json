@@ -19,7 +19,7 @@
             "sda": 21
         },
         "ledBomb": 2,
-        "ledHum": 4
+        "ledHum": 15
     }
 
 }

@@ -8,13 +8,13 @@ from Models.PowerBomb import PowerBomb
 from Models.SensorAnalogo import SensorAnalogo
 from Models.Led import Led
 from Models.Screen import Screen
-import json
+import ujson
 
 #Package
 from Shared.NetworkConnect import NetworkConnection
 
-with open('config.json') as config_file:
-        data = json.load(config_file)
+with open("./Shared/config.json") as config_file:
+    data = ujson.load(config_file)
 
 red = data["wifiConnect"]
 
@@ -104,6 +104,7 @@ def proccessDHT():
 def proccessBomb(state):
     if state == True:
         powerBomb.BombOn()
+        ledBomb.ledOn()
         screen.FillMessage(0, 48, "Bomba Activa")
         print("Bomba de agua activa")
     else:

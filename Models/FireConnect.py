@@ -1,10 +1,10 @@
 import Package.ufirebase as firebase
-import ujson, json
+import ujson
 
 class FirebaseConnect:
     
-    with open('config.json') as config_file:
-        data = json.load(config_file)
+    with open("./Shared/config.json") as config_file:
+        data = ujson.load(config_file)
         
     url = data["urlFirebase"]
     pathDht = '/Sensors/Environment'

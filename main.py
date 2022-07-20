@@ -4,8 +4,9 @@ def main():
     
     try:
         Control.initBeAgro()
-    except:
-        Control.messageLed(0, 16, "Ocurrio un problema!!!")
+    except Exception as e:
+        print('Error durante la ejecucion '+ str(e))
+        Control.messageLed("Ocurrio un problema!!!", 0, 16)
         Control.proccessError()
 
 
