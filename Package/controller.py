@@ -165,8 +165,8 @@ def proccessIndex(FT, LDR):
     global ListLDR
     
     if (contIndex == 0):
-        ListFT.clear()
-        ListLDR.clear()
+        ListFT = []
+        ListLDR = []
         
     if (contIndex < 7):    
         ListLDR.append(LDR)
@@ -175,4 +175,4 @@ def proccessIndex(FT, LDR):
     if (contIndex == 6):
         fireDB.SendIndexSensor(ListLDR, 'Luz')
         fireDB.SendIndexSensor(ListFT, 'Humedad')
-        contIndex = 0
+        contIndex = -1
