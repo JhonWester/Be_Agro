@@ -10,6 +10,7 @@ class FirebaseConnect:
     pathDht = '/Sensors/Environment'
     pathFC =  '/Sensors/Humidity'
     pathLDR = '/Sensors/Light'
+    pathIndex = '/Indices/'
     
     def __init__(self) -> None:
         firebase.setURL(self.__class__.url)
@@ -41,3 +42,7 @@ class FirebaseConnect:
             "LightLevel": LightLevel
             })
         firebase.put(self.__class__.pathLDR, message, bg = 0 )
+    
+    #Send to cloud Index List
+    def SendIndexSensor(self, list, path):
+        firebase.put(self.__class__.pathIndex + path, list, bg = 0)

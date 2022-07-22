@@ -51,10 +51,13 @@ ledHumidity = Led(pines["ledHum"])
 valueDHT = [0, 0]
 valueFC = 0
 valueLDR = 0
+contIndex = 0
+ListFT = []
+ListLDR = []
 
 
 def initBeAgro():
-    
+    global contIndex
     #Init message oled
     screen.MessagesInitOled()
     
@@ -68,6 +71,8 @@ def initBeAgro():
             
             light = proccessLDR()
             
+            proccessIndex(groundMoisture, light)
+            
             if (light > 80 and groundMoisture < 50):
                 proccessBomb(True)
             else:
@@ -78,6 +83,7 @@ def initBeAgro():
                     proccessBomb(False)
 
             screen.ShowMessage()
+            contIndex += 1
             time.sleep(5)
                 
     else:
@@ -152,3 +158,21 @@ def messageLed(message, colum, file):
 def proccessError():
     connection.desactive()
     proccessBomb(False)
+    
+def proccessIndex(FT, LDR):
+    global contIndex
+    global ListFT
+    global ListLDR
+    
+    if (contIndex == 0):
+        ListFT.clear()
+        ListLDR.clear()
+        
+    if (contIndex < 7):    
+        ListLDR.append(LDR)
+        ListFT.append(FT)
+    
+    if (contIndex == 6):
+        fireDB.SendIndexSensor(ListLDR, 'Luz')
+        fireDB.SendIndexSensor(ListFT, 'Humedad')
+        contIndex = 0
