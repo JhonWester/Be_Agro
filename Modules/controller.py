@@ -10,7 +10,7 @@ from Models.Led import Led
 from Models.Screen import Screen
 import ujson
 
-#Package
+#Network connect
 from Shared.NetworkConnect import NetworkConnection
 
 with open("./Shared/config.json") as config_file:
@@ -42,7 +42,7 @@ sensorLDR = SensorAnalogo(pines["ldr"], 65, 650)
 screen = Screen(pines["screen"]["scl"], pines["screen"]["sda"])
 
 #Salidas led
-ledBomb = Led(pines["ledBomb"])
+#ledBomb = Led(pines["ledBomb"])
 ledHumidity = Led(pines["ledHum"])
 
 #Inicios de los procesos y recoleccion de datos de los dispositivos
@@ -74,13 +74,19 @@ def initBeAgro():
             proccessIndex(groundMoisture, light)
             
             if (light > 80 and groundMoisture < 50):
-                proccessBomb(True)
+                fireDB.SendDataBomb(True)
+                print("Bomba de agua activa")
+                #proccessBomb(True)
             else:
                 
                 if (groundMoisture < 50 and environment > 33):
-                    proccessBomb(True)
+                    fireDB.SendDataBomb(True)
+                    print("Bomba de agua Activada")
+                    #proccessBomb(True)
                 else:
-                    proccessBomb(False)
+                    fireDB.SendDataBomb(False)
+                    print("Bomba de agua desactivada")
+                    #proccessBomb(False)
 
             screen.ShowMessage()
             contIndex += 1
@@ -112,9 +118,11 @@ def proccessBomb(state):
         powerBomb.BombOn()
         ledBomb.ledOn()
         screen.FillMessage(0, 48, "Bomba Activa")
+        fireDB.SendDataBomb(True)
         print("Bomba de agua activa")
     else:
         powerBomb.BombOff()
+        fireDB.SendDataBomb(False)
         screen.FillMessage(0, 48, "Bomba Apagada")
         print("Bomba Apagada")
 

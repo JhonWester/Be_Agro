@@ -1,4 +1,4 @@
-import Package.controller as Control
+import Modules.controller as Control
 
 def main():
     
