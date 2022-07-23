@@ -42,7 +42,7 @@ sensorLDR = SensorAnalogo(pines["ldr"], 65, 650)
 screen = Screen(pines["screen"]["scl"], pines["screen"]["sda"])
 
 #Salidas led
-#ledBomb = Led(pines["ledBomb"])
+ledBomb = Led(pines["ledBomb"])
 ledHumidity = Led(pines["ledHum"])
 
 #Inicios de los procesos y recoleccion de datos de los dispositivos
@@ -74,19 +74,16 @@ def initBeAgro():
             proccessIndex(groundMoisture, light)
             
             if (light > 80 and groundMoisture < 50):
-                fireDB.SendDataBomb(True)
                 print("Bomba de agua activa")
-                #proccessBomb(True)
+                proccessBomb(True)
             else:
                 
-                if (groundMoisture < 50 and environment > 33):
-                    fireDB.SendDataBomb(True)
+                if (groundMoisture < 50 and environment > 33 and light < 30):
                     print("Bomba de agua Activada")
-                    #proccessBomb(True)
+                    proccessBomb(True)
                 else:
-                    fireDB.SendDataBomb(False)
                     print("Bomba de agua desactivada")
-                    #proccessBomb(False)
+                    proccessBomb(False)
 
             screen.ShowMessage()
             contIndex += 1
