@@ -1,4 +1,4 @@
-import Package.ufirebase as firebase
+import Modules.ufirebase as firebase
 import ujson
 
 class FirebaseConnect:

@@ -10,7 +10,7 @@ from Models.Led import Led
 from Models.Screen import Screen
 import ujson
 
-#Package
+#Network connect
 from Shared.NetworkConnect import NetworkConnection
 
 with open("./Shared/config.json") as config_file:

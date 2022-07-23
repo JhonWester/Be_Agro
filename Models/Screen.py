@@ -1,5 +1,5 @@
 from machine import Pin, I2C
-from Package.ssd1306 import SSD1306_I2C
+from Modules.ssd1306 import SSD1306_I2C
 import ujson
 import time
 
